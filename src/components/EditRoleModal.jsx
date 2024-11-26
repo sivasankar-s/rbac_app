@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
+  const [roleName, setRoleName] = useState(role.name); // State to store role name
   const [selectedPermissions, setSelectedPermissions] = useState([]); // State to store selected permissions
 
   const allPermissions = ['read', 'write', 'edit', 'delete', 'share']; // Full list of permissions
@@ -23,7 +24,8 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
 
   // Function to handle form submission
   const handleSubmit = () => {
-    onSubmit(selectedPermissions); // Pass selected permissions to parent
+    let roleData = { id: role.id, name: roleName, permissions: selectedPermissions }; // Update role with selected permissions
+    onSubmit(roleData); // Pass selected permissions to parent
     onClose(); // Close the modal
   };
 
@@ -38,7 +40,7 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
         <div className="mb-4">
           <input
             type="text"
-            value={role.name}
+            value={roleName}
             onChange={(e) => setRoleName(e.target.value)}
             className="w-full mt-1 p-2 border-b-2 transition-colors focus:border-black focus:outline-none"
             placeholder="Enter role name"

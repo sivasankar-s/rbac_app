@@ -35,9 +35,56 @@ const ManageRoles = () => {
     console.log(roles)
   }, [])
 
-  const handleAddRole = (roleData) => {
-    console.log('Role Data:', roleData); // Handle the role data - API call
+  const handleAddRole = async (roleData) => {
+    console.log('User Data:', roleData); // Handle the user data - API call
+    const res = await fetch('/api/roles', {method: 'POST', body: JSON.stringify(roleData)})
+    const data = await res.json()
+    console.log('Data:', data); 
+    setRoles([...roles, data.role])
   };
+
+  const handleDeleteRole = async (id) => {
+    const confirmDelete = confirm("Do you want to remove this role? ")
+    
+    if(confirmDelete){
+      // API call to delete the role
+      try{
+       await fetch(`/api/roles/${id}`, {method: 'DELETE'})
+       setRoles(roles.filter(role => role.id !== id))
+       console.log(id)
+       
+      } catch(err) {
+       console.log(err)
+      }
+    }
+   //  console.log('User Data:', userData);
+ };
+
+ const handleEditRole = async (rolee) => {
+  // const confirmDelete = confirm("Do you want to remove this user? ")
+  
+  // if(confirmDelete){
+    // API call to delete the user
+    try{
+     const res = await fetch(`/api/roles/${rolee.id}`, {method: 'PATCH',body: JSON.stringify(rolee)})
+      const json = await res.json()
+      
+     const rolescopy = [...roles]
+     console.log(rolee.id)
+     const index = roles.findIndex(r => r.id === rolee.id)
+     console.log(json)
+     rolescopy[index] = json.role
+     setRoles(rolescopy)
+    //  console.log(id)
+     console.log(rolescopy)
+     console.log(index)
+     
+    } catch(err) {
+     console.log(err)
+    }
+  // }
+ //  console.log('User Data:', userData);
+};
 
   return (
     <div>
@@ -61,7 +108,7 @@ const ManageRoles = () => {
   <p className='p-2 flex justify-center'>Actions</p>
   </div>
   {roles.map((role, index) => (
-    <RoleRecord key={index} name={role.name} permissions={role.permissions} />
+    <RoleRecord key={index} handleDeleteRole={handleDeleteRole} handleEditRole={handleEditRole}  id={role.id} name={role.name} permissions={role.permissions} />
   ))  
   }
   </div>

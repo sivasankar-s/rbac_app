@@ -67,5 +67,28 @@ createServer({
       
         return schema.users.find(id).destroy()
       })
+
+
+      this.post("/roles", (schema, request) => {
+        let attrs = JSON.parse(request.requestBody)
+        
+        return schema.roles.create(attrs)
+    })
+
+    this.patch("/roles/:id", (schema, request) => {
+        let newAttrs = JSON.parse(request.requestBody)
+        let id = request.params.id
+        console.log(id)
+        let role = schema.roles.find(id)
+        console.log(role)
+      
+        return role.update(newAttrs)
+      })
+      
+      this.delete("/roles/:id", (schema, request) => {
+        let id = request.params.id
+      
+        return schema.roles.find(id).destroy()
+      })
   },
 })

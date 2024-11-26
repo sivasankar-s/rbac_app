@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   const [name, setName] = useState('');
@@ -6,7 +6,16 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   const [isActive, setIsActive] = useState(true);
   const [role, setRole] = useState('user'); // Default role
 
-  const roles = ['user', 'admin', 'editor', 'author']; // Example roles
+  // const roles = ['user', 'admin', 'editor', 'author']; // Example roles
+  let [roles, setRoles] = useState([])
+
+  
+
+  useEffect(() => {
+    fetch("/api/roles")
+      .then((response) => response.json())
+      .then((json) => setRoles(json.roles))
+  }, [])
 
   const handleSubmit = () => {
     let id = Math.random() * 10000;
@@ -107,7 +116,7 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
               className="w-full mt-1 p-2 border rounded-md focus:outline-none transition-all"
             >
                 <option value="" disabled selected>Select Role</option>
-              {roles.map((r) => (
+              {roles.map(({name: r}) => (
                 <option key={r} value={r}>
                   {r.charAt(0).toUpperCase() + r.slice(1)}
                 </option>

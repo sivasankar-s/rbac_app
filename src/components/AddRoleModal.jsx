@@ -27,7 +27,7 @@ const AddRoleModal = ({ isOpen, onClose, onSubmit }) => {
       alert('Please enter a role name');
       return;
     }
-    onSubmit({ id, roleName, permissions: selectedPermissions });
+    onSubmit({ id, name: roleName, permissions: selectedPermissions });
     resetForm(); // Reset the form after submission
     onClose(); // Close the modal after submission
   };
