@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
-  const [roleName, setRoleName] = useState(role.name); // State to store role name
-  const [selectedPermissions, setSelectedPermissions] = useState([]); // State to store selected permissions
+  const [roleName, setRoleName] = useState(role.name);
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
 
-  const allPermissions = ['read', 'write', 'edit', 'delete', 'share']; // Full list of permissions
+  const allPermissions = ["read", "write", "edit", "delete", "share"]; // Full list of permissions
 
   // Load initial permissions when the modal opens or initialPermissions changes
   useEffect(() => {
@@ -13,18 +13,23 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
     }
   }, [isOpen, role.permissions]);
 
-  // Function to handle checkbox changes
+  // handle checkbox changes
   const handleCheckboxChange = (permission) => {
-    setSelectedPermissions((prev) =>
-      prev.includes(permission)
-        ? prev.filter((p) => p !== permission) // Remove if already selected
-        : [...prev, permission] // Add if not selected
+    setSelectedPermissions(
+      (prev) =>
+        prev.includes(permission)
+          ? prev.filter((p) => p !== permission) // Remove if already selected
+          : [...prev, permission] // Add if not selected
     );
   };
 
   // Function to handle form submission
   const handleSubmit = () => {
-    let roleData = { id: role.id, name: roleName, permissions: selectedPermissions }; // Update role with selected permissions
+    let roleData = {
+      id: role.id,
+      name: roleName,
+      permissions: selectedPermissions,
+    }; // Update role with selected permissions
     onSubmit(roleData); // Pass selected permissions to parent
     onClose(); // Close the modal
   };
@@ -34,7 +39,6 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 m-6">
-
         <h2 className="text-xl font-semibold mb-4">Edit Role</h2>
         {/* Role Name Input */}
         <div className="mb-4">

@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AddRoleModal = ({ isOpen, onClose, onSubmit }) => {
-  const [roleName, setRoleName] = useState('');
+  const [roleName, setRoleName] = useState("");
   const [selectedPermissions, setSelectedPermissions] = useState([]); // Empty initially
 
-  const allPermissions = ['read', 'write', 'edit', 'delete', 'share']; // Example permissions
+  const allPermissions = ["read", "write", "edit", "delete", "share"]; // Full list of permissions
 
   // Toggle permissions
   const handleCheckboxChange = (permission) => {
-    setSelectedPermissions((prev) =>
-      prev.includes(permission)
-        ? prev.filter((p) => p !== permission) // Remove if already selected
-        : [...prev, permission] // Add if not selected
+    setSelectedPermissions(
+      (prev) =>
+        prev.includes(permission)
+          ? prev.filter((p) => p !== permission) // Remove if already selected
+          : [...prev, permission] // Add if not selected
     );
   };
 
   const resetForm = () => {
-    setRoleName('');
+    setRoleName("");
     setSelectedPermissions([]);
   };
 
   // Handle form submission
   const handleSubmit = () => {
     let id = Math.random() * 10000;
-    if (roleName.trim() === '') {
-      alert('Please enter a role name');
+    if (roleName.trim() === "") {
+      alert("Please enter a role name");
       return;
     }
     onSubmit({ id, name: roleName, permissions: selectedPermissions });
@@ -35,7 +36,7 @@ const AddRoleModal = ({ isOpen, onClose, onSubmit }) => {
   const handleCancel = () => {
     resetForm(); // Reset the form on cancel
     onClose(); // Close the modal on
-  }
+  };
 
   if (!isOpen) return null;
 

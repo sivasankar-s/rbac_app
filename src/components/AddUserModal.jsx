@@ -1,59 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isActive, setIsActive] = useState(true);
-  const [role, setRole] = useState('user'); // Default role
+  const [role, setRole] = useState(""); // Default role
 
-  // const roles = ['user', 'admin', 'editor', 'author']; // Example roles
-  let [roles, setRoles] = useState([])
-
-  
-
+  // get list of available roles
+  let [roles, setRoles] = useState([]);
   useEffect(() => {
     fetch("/api/roles")
       .then((response) => response.json())
-      .then((json) => setRoles(json.roles))
-  }, [])
+      .then((json) => setRoles(json.roles));
+  }, []);
 
   const handleSubmit = () => {
     let id = Math.random() * 10000;
     const userData = { id, name, email, status: isActive, role };
-    if(validateUser(userData)){
-        onSubmit(userData); // Pass user data to the parent component
-        resetForm(); // Reset the form after submission
-        onClose(); // Close the modal after submission
+    if (validateUser(userData)) {
+      onSubmit(userData); // Pass user data to the parent component
+      resetForm(); // Reset the form after submission
+      onClose(); // Close the modal after submission
     }
   };
 
   const resetForm = () => {
-    setName('');
-    setEmail('');
+    setName("");
+    setEmail("");
     setIsActive(true); // Default to active status
-    setRole(''); // Reset role selection
+    setRole(""); // Reset role selection
   };
 
   const validateUser = (userData) => {
-    // Add validation logic here
-    if(name === '') {
-        alert('Please enter Name');
-        return false;
-    }
-    else if(email === '') {
-        alert('Please enter Email');
-        return false;
-    }
-    else if(email.includes('@') === false) {
-        alert('Please enter a valid Email');
-        return false;
-    }
-    else if(role == '') {
-        alert('Please select a Role');
-        return false;
+    if (name === "") {
+      alert("Please enter Name");
+      return false;
+    } else if (email === "") {
+      alert("Please enter Email");
+      return false;
+    } else if (email.includes("@") === false) {
+      alert("Please enter a valid Email");
+      return false;
+    } else if (role == "") {
+      alert("Please select a Role");
+      return false;
     }
     return true;
-  }
+  };
 
   // Close the modal and reset the form on cancel
   const handleCancel = () => {
@@ -70,7 +63,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
         <div className="space-y-4">
           {/* Name Input */}
           <div>
-            {/* <label className="block text-sm font-medium text-gray-700">Name</label> */}
             <input
               type="text"
               className="w-full mt-1 p-2 border-b-2 transition-colors focus:border-b-black focus:outline-none focus:border-b-2"
@@ -81,7 +73,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
           {/* Email Input */}
           <div>
-            {/* <label className="block text-sm font-medium text-gray-700">Email</label> */}
             <input
               type="email"
               className="w-full mt-1 p-2 border-b-2 transition-colors focus:border-b-black focus:outline-none focus:border-b-2"
@@ -92,47 +83,47 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
           {/* Active/Inactive Toggle */}
           <div className="flex items-center">
-            {/* <label className="block text-sm font-medium text-gray-700 mr-4">Status</label> */}
             <button
               onClick={() => setIsActive(!isActive)}
               className={`w-14 h-6 rounded-full ${
-                isActive ? 'bg-green-500' : 'bg-gray-300'
+                isActive ? "bg-green-500" : "bg-gray-300"
               } relative focus:outline-none`}
             >
               <div
                 className={`w-5 h-5  bg-white rounded-full shadow-md  transition-transform ${
-                  isActive ? 'translate-x-8' : 'translate-x-1'
+                  isActive ? "translate-x-8" : "translate-x-1"
                 }`}
               />
             </button>
-            <span className="ml-3 text-sm">{isActive ? 'Active' : 'Inactive'}</span>
+            <span className="ml-3 text-sm">
+              {isActive ? "Active" : "Inactive"}
+            </span>
           </div>
           {/* Role Listbox */}
-          <div >
-            {/* <label className="p-2 mt-2 text-sm font-medium text-gray-700">Role</label> */}
+          <div>
             <select
-            //   value={role}
+              //   value={role}
               onChange={(e) => setRole(e.target.value)}
               className="w-full mt-1 p-2 border rounded-md focus:outline-none transition-all"
             >
-                <option value="" disabled selected>Select Role</option>
-              {roles.map(({name: r}) => (
+              <option value="" disabled selected>
+                Select Role
+              </option>
+              {roles.map(({ name: r }) => (
                 <option key={r} value={r}>
                   {r.charAt(0).toUpperCase() + r.slice(1)}
                 </option>
               ))}
             </select>
           </div>
-         
-          {/* Submit Button */}
+
           <div className="flex justify-end gap-3">
-             {/* Close Button */}
-        <button
-          onClick={handleCancel}
-          className="bg-gray-200 text-gray-500 px-4 py-2 rounded-md hover:bg-gray-300 transition-all"
-        >
-          Cancel
-        </button>
+            <button
+              onClick={handleCancel}
+              className="bg-gray-200 text-gray-500 px-4 py-2 rounded-md hover:bg-gray-300 transition-all"
+            >
+              Cancel
+            </button>
             <button
               onClick={handleSubmit}
               className="bg-dark-2 text-white px-4 py-2 rounded-md hover:bg-dark-1 transition-all"
@@ -141,7 +132,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             </button>
           </div>
         </div>
-        
       </div>
     </div>
   );
