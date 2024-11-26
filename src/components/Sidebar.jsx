@@ -27,7 +27,7 @@ const Sidebar = () => {
         <div className="md:hidden flex justify-between items-center bg-dark-1 text-white p-4">
         <img src={logo} alt="Logo" className="w-12 h-12 rounded-md" />
         <div className="flex justify-end ">
-            <NavLink to='/manageUsers' className={({isActive}) => isActive ? 'bg-dark-3 font-semibold rounded-md p-2 px-6' : 'font-semibold p-2 px-6'}>Users</NavLink>
+            <NavLink to='/manageUsers' className={({isActive}) => (isActive || location.pathname === '/') ? 'bg-dark-3 font-semibold rounded-md p-2 px-6' : 'font-semibold p-2 px-6'}>Users</NavLink>
             <NavLink to='/manageRoles' className={({isActive}) => isActive ? 'bg-dark-3 font-semibold rounded-md p-2 px-6' : 'font-semibold p-2 px-6'}>Roles</NavLink>
         </div>
         </div>
