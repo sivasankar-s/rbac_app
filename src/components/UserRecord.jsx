@@ -2,21 +2,16 @@ import React, {useState} from 'react'
 import { MdDelete, MdEdit  } from "react-icons/md";
 import EditUserModal from './EditUserModal';
 
-const UserRecord = ({name, email, status, role}) => {
+const UserRecord = ({name, email, status, role, id, handleDeleteUser, handleEditUser}) => {
 
     const [isEditUserModalOpen, setEditUserModalOpen] = useState(false);
 
-    const handleEditUser = (userData) => {
-        console.log('User Data:', userData); // Handle the user data - API call
-      };
+    // const handleEditUser = (userData) => {
 
-    const handleDeleteUser = (userData) => {
-       const confirmDelete = confirm("Do you want to remove this user? ")
-       if(confirmDelete){
-         // API call to delete the user
-       }
-       console.log('User Data:', userData);
-    };
+    //     console.log('User Data:', userData); // Handle the user data - API call
+    //   };
+
+    
 
   return (
     <>
@@ -24,7 +19,7 @@ const UserRecord = ({name, email, status, role}) => {
         isOpen={isEditUserModalOpen}
         onClose={() => setEditUserModalOpen(false)}
         onSubmit={handleEditUser}
-        user={{name, email, status, role}}
+        user={{name, email, status, role, id}}
       />
 
     <div className='bg-slate-200 text-gray-800 rounded-md grid grid-cols-4 lg:grid-cols-5 hover:shadow-sm hover:bg-slate-300 transition-all'>
@@ -43,7 +38,7 @@ const UserRecord = ({name, email, status, role}) => {
         </div>
         <div className='col-span-1 lg:col-span-1 p-2 flex justify-center'>
             <button onClick={() => setEditUserModalOpen(true)} className='text-xl text-gray-800 p-2 md:hover:text-blue-700 md:hover:bg-white transition-all  rounded-full'><MdEdit /></button>
-            <button onClick={() => handleDeleteUser()} className='text-xl text-gray-800 p-2 md:hover:text-red-500 md:hover:bg-white transition-all rounded-full'><MdDelete /></button>
+            <button onClick={() => handleDeleteUser(id)} className='text-xl text-gray-800 p-2 md:hover:text-red-500 md:hover:bg-white transition-all rounded-full'><MdDelete /></button>
         </div>    
 
     </div>

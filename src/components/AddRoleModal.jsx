@@ -22,11 +22,12 @@ const AddRoleModal = ({ isOpen, onClose, onSubmit }) => {
 
   // Handle form submission
   const handleSubmit = () => {
+    let id = Math.random() * 10000;
     if (roleName.trim() === '') {
       alert('Please enter a role name');
       return;
     }
-    onSubmit({ roleName, permissions: selectedPermissions });
+    onSubmit({ id, roleName, permissions: selectedPermissions });
     resetForm(); // Reset the form after submission
     onClose(); // Close the modal after submission
   };

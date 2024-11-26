@@ -4,23 +4,23 @@ import RoleRecord from '../components/RoleRecord'
 import AddRoleModal from '../components/AddRoleModal'
 
 
-createServer({
-  routes() {
-    this.get("/api/roles", () => [
-      {name: 'Admin', permissions:['read', 'write', 'delete','edit','share']},
-      {name: 'User', permissions:['read','share']},
-      {name: 'Editor', permissions:['edit','share']},
-      {name: 'Author', permissions:['read', 'write', 'delete','edit']},
-    ]),
-    this.get("/api/users", () => [
-      {name: 'Siva', email: 'siva@gmail.com', status: true, role: 'admin'},
-        {name: 'John', email: 'john@gmail.com', status: false, role: 'user'},
-        {name: 'Ram', email: 'ram@gmail.com', status: true, role: 'user'},
-        {name: 'Raj', email: 'raj@gmail.com', status: false, role: 'admin'},
-        {name: 'Ravi', email: 'ravi@gmail.com', status: true, role: 'user'},
-    ])
-  },
-})
+// createServer({
+//   routes() {
+//     this.get("/api/roles", () => [
+//       {name: 'Admin', permissions:['read', 'write', 'delete','edit','share']},
+//       {name: 'User', permissions:['read','share']},
+//       {name: 'Editor', permissions:['edit','share']},
+//       {name: 'Author', permissions:['read', 'write', 'delete','edit']},
+//     ]),
+//     this.get("/api/users", () => [
+//       {name: 'Siva', email: 'siva@gmail.com', status: true, role: 'admin'},
+//         {name: 'John', email: 'john@gmail.com', status: false, role: 'user'},
+//         {name: 'Ram', email: 'ram@gmail.com', status: true, role: 'user'},
+//         {name: 'Raj', email: 'raj@gmail.com', status: false, role: 'admin'},
+//         {name: 'Ravi', email: 'ravi@gmail.com', status: true, role: 'user'},
+//     ])
+//   },
+// })
 
 const ManageRoles = () => {
 
@@ -30,7 +30,7 @@ const ManageRoles = () => {
   useEffect(() => {
     fetch("/api/roles")
       .then((response) => response.json())
-      .then((json) => setRoles(json))
+      .then((json) => setRoles(json.roles))
 
     console.log(roles)
   }, [])

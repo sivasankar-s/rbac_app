@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import UserRecord from '../components/UserRecord'
-import { createServer } from "miragejs"
+// import { createServer } from "miragejs"
 import AddUserModal from '../components/AddUserModal'
 
-createServer({
-  routes() {
-    this.get("/api/users", () => [
-      {name: 'Siva', email: 'siva@gmail.com', status: true, role: 'admin'},
-        {name: 'John', email: 'john@gmail.com', status: false, role: 'user'},
-        {name: 'Ram', email: 'ram@gmail.com', status: true, role: 'user'},
-        {name: 'Raj', email: 'raj@gmail.com', status: false, role: 'admin'},
-        {name: 'Ravi', email: 'ravi@gmail.com', status: true, role: 'user'},
-    ]),
-    this.get("/api/roles", () => [
-      {name: 'Admin', permissions:['read', 'write', 'delete','edit','share']},
-      {name: 'User', permissions:['read','share']},
-      {name: 'Editor', permissions:['edit','share']},
-      {name: 'Author', permissions:['read', 'write', 'delete','edit']},
-    ])
-  },
-})
+// createServer({
+//   routes() {
+//     this.get("/api/users", () => [
+//       {name: 'Siva', email: 'siva@gmail.com', status: true, role: 'admin'},
+//         {name: 'John', email: 'john@gmail.com', status: false, role: 'user'},
+//         {name: 'Ram', email: 'ram@gmail.com', status: true, role: 'user'},
+//         {name: 'Raj', email: 'raj@gmail.com', status: false, role: 'admin'},
+//         {name: 'Ravi', email: 'ravi@gmail.com', status: true, role: 'user'},
+//     ]),
+//     this.get("/api/roles", () => [
+//       {name: 'Admin', permissions:['read', 'write', 'delete','edit','share']},
+//       {name: 'User', permissions:['read','share']},
+//       {name: 'Editor', permissions:['edit','share']},
+//       {name: 'Author', permissions:['read', 'write', 'delete','edit']},
+//     ])
+//   },
+// })
 
 
 
@@ -31,14 +31,61 @@ const ManageUsers = () => {
   useEffect(() => {
     fetch("/api/users")
       .then((response) => response.json())
-      .then((json) => setUsers(json))
+      .then((json) => setUsers(json.users))
 
     console.log(users)
   }, [])
 
-  const handleAddUser = (userData) => {
+  const handleAddUser = async (userData) => {
     console.log('User Data:', userData); // Handle the user data - API call
+    const res = await fetch('/api/users', {method: 'POST', body: JSON.stringify(userData)})
+    const data = await res.json()
+    console.log('Data:', data); 
+    setUsers([...users, data.user])
   };
+
+  const handleDeleteUser = async (id) => {
+    const confirmDelete = confirm("Do you want to remove this user? ")
+    
+    if(confirmDelete){
+      // API call to delete the user
+      try{
+       await fetch(`/api/users/${id}`, {method: 'DELETE'})
+       setUsers(users.filter(user => user.id !== id))
+       console.log(id)
+       
+      } catch(err) {
+       console.log(err)
+      }
+    }
+   //  console.log('User Data:', userData);
+ };
+
+ const handleEditUser = async (userr) => {
+  // const confirmDelete = confirm("Do you want to remove this user? ")
+  
+  // if(confirmDelete){
+    // API call to delete the user
+    try{
+     const res = await fetch(`/api/users/${userr.id}`, {method: 'PATCH',body: JSON.stringify(userr)})
+      const json = await res.json()
+      
+     const userscopy = [...users]
+     console.log(userr.id)
+     const index = users.findIndex(u => u.id === userr.id)
+     console.log(json)
+     userscopy[index] = json.user
+     setUsers(userscopy)
+    //  console.log(id)
+     console.log(userscopy)
+     console.log(index)
+     
+    } catch(err) {
+     console.log(err)
+    }
+  // }
+ //  console.log('User Data:', userData);
+};
 
 
 
@@ -67,7 +114,7 @@ const ManageUsers = () => {
       <p className='p-2 flex justify-center'>Actions</p>
       </div>
       {users.map((user, index) => (
-        <UserRecord key={index} name={user.name} status={user.status} email={user.email} role={user.role} />
+        <UserRecord key={index} handleDeleteUser={handleDeleteUser} handleEditUser={handleEditUser} name={user.name} id={user.id} status={user.status} email={user.email} role={user.role} />
       ))  
       }
       </div>

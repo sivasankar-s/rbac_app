@@ -9,7 +9,7 @@ const EditUserModal = ({ isOpen, onClose, onSubmit, user }) => {
   const roles = ['user', 'admin', 'editor', 'author']; // Example roles
 
   const handleSubmit = () => {
-    const userData = { name, email, isActive, role };
+    const userData = { name, email, status: isActive, role, id: user.id };
     if(validateUser(userData)){
         onSubmit(userData); // Pass user data to the parent component
         // resetForm(); // Reset the form after submission
