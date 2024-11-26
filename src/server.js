@@ -13,35 +13,35 @@ createServer({
       name: "Siva",
       email: "siva@gmail.com",
       status: true,
-      role: "admin",
-    });
+      role: "Admin",
+    })
     server.create("user", {
       id: 2,
       name: "John",
       email: "john@gmail.com",
       status: false,
-      role: "user",
+      role: "User",
     });
     server.create("user", {
       id: 3,
       name: "Ram",
       email: "ram@gmail.com",
       status: true,
-      role: "user",
+      role: "User",
     });
     server.create("user", {
       id: 4,
       name: "Raj",
       email: "raj@gmail.com",
       status: false,
-      role: "admin",
+      role: "Admin",
     });
     server.create("user", {
       id: 5,
       name: "Ravi",
       email: "ravi@gmail.com",
       status: true,
-      role: "user",
+      role: "User",
     });
 
     server.create("role", {

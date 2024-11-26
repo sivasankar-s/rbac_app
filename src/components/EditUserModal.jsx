@@ -6,12 +6,19 @@ const EditUserModal = ({ isOpen, onClose, onSubmit, user }) => {
   const [isActive, setIsActive] = useState(user.status);
   const [role, setRole] = useState(user.role); 
 
+
   // Get the list of roles from the server
   let [roles, setRoles] = useState([]);
   useEffect(() => {
     fetch("/api/roles")
       .then((response) => response.json())
-      .then((json) => setRoles(json.roles));
+      .then((json) => {
+        setRoles(json.roles)
+        console.log(role)
+      }
+      );
+      const userData = { name, email, status: isActive, role, id: user.id };
+      console.log(role)
   }, []);
 
   const handleSubmit = () => {
@@ -94,6 +101,7 @@ const EditUserModal = ({ isOpen, onClose, onSubmit, user }) => {
           <div>
             <select
               value={role}
+              
               onChange={(e) => setRole(e.target.value)}
               className="w-full mt-1 p-2 border transition-all rounded-md focus:outline-none"
             >
@@ -103,6 +111,7 @@ const EditUserModal = ({ isOpen, onClose, onSubmit, user }) => {
                   {r.charAt(0).toUpperCase() + r.slice(1)}
                 </option>
               ))}
+              {console.log(role)}
             </select>
           </div>
 
