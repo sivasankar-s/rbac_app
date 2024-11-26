@@ -36,8 +36,8 @@ const RoleRecord = ({name, permissions}) => {
         </div>
         
         <div className='col-span-1 lg:col-span-1 p-2 flex justify-center'>
-            <button onClick={() => setEditRoleModalOpen(true)} className='text-xl text-gray-800 p-2 hover:text-blue-700 hover:bg-white transition-all rounded-full'><MdEdit /></button>
-            <button onClick={() => handleDeleteRole()} className='text-xl text-gray-800 p-2 hover:text-red-500 hover:bg-white transition-all rounded-full'><MdDelete /></button>
+            <button onClick={() => setEditRoleModalOpen(true)} className='text-xl text-gray-800 p-2 md:hover:text-blue-700 md:hover:bg-white transition-all rounded-full'><MdEdit /></button>
+            <button onClick={() => handleDeleteRole()} className='text-xl text-gray-800 p-2 md:hover:text-red-500 md:hover:bg-white transition-all rounded-full'><MdDelete /></button>
         </div>    
 
     </div>
