@@ -4,7 +4,7 @@ const EditUserModal = ({ isOpen, onClose, onSubmit, user }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [isActive, setIsActive] = useState(user.status);
-  const [role, setRole] = useState(user.role); // Default role
+  const [role, setRole] = useState(user.role); 
 
   // Get the list of roles from the server
   let [roles, setRoles] = useState([]);

@@ -4,7 +4,7 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isActive, setIsActive] = useState(true);
-  const [role, setRole] = useState(""); // Default role
+  const [role, setRole] = useState("");
 
   // get list of available roles
   let [roles, setRoles] = useState([]);
