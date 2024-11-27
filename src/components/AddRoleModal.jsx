@@ -29,7 +29,7 @@ const AddRoleModal = ({ isOpen, onClose, onSubmit }) => {
       return;
     }
     else if (selectedPermissions.length ===0 ){
-      alert("Select at least one role")
+      alert("Select at least one permission")
       return;
     }
     onSubmit({ id, name: roleName, permissions: selectedPermissions });

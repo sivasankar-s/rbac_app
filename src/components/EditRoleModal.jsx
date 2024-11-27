@@ -35,7 +35,7 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
       return;
     }
     else if (selectedPermissions.length ===0 ){
-      alert("Select at least one role")
+      alert("Select at least one permission")
       return;
     }
     onSubmit(roleData); // Pass selected permissions to parent
