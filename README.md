@@ -19,7 +19,8 @@ After installing the dependencies, run `npm run dev` to run the project
 It provides a clean interface to manage users. We can add new user, assign roles to each user while creating, we can also edit the user. We can also manage the status of each user (Active/Inactive). Input validation also done for robustness.
 
 ### Role Management
-Roles can be managed here. We can create new roles and assign them users. We can also modify the roles, and delete them. Each role has its permissions clearly displayed in the UI. The roles are updated **dynamically** and can be used to assign the users.
+Roles can be managed here. We can create new roles and assign them users. We can also modify the roles, and delete them. Each role has its permissions clearly displayed in the UI. The roles are updated **dynamically** and can be used to assign the users. **After adding a role, while adding a user or editing a user, the newly created role will be available** (It will be fetched dynamically).
+
 
 ### Custom API Simulation
 **Mirage.js** is used to Mock API calls and simulate all functionalities. We can easily replace them in production environment to connect with actual backend. Without a backend, it performs very well (for testing) with the help of Mirage.js. Mirage.js is a tool which makes us able to mock API calls, like integrating with an actual database. 
