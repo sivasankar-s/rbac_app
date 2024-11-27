@@ -30,6 +30,14 @@ const CheckboxForm = ({ isOpen, onClose, onSubmit, role }) => {
       name: roleName,
       permissions: selectedPermissions,
     }; // Update role with selected permissions
+    if (roleName.trim() === "") {
+      alert("Please enter a role name");
+      return;
+    }
+    else if (selectedPermissions.length ===0 ){
+      alert("Select at least one role")
+      return;
+    }
     onSubmit(roleData); // Pass selected permissions to parent
     onClose(); // Close the modal
   };
